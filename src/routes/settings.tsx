@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useAtom } from 'jotai'
 import { localeAtom } from '#/store/locale-atom'
-import { userQueryOptions, useUserQuery } from '#/features/settings/hooks/use-get-user-query'
 import { ConnectionInformationCard } from '#/features/settings/components/connection-information-card'
+import { useGetUserQuery, userQueryOptions } from '#/features/settings/hooks/use-get-user-query'
 
 export const Route = createFileRoute('/settings')({
   loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(userQueryOptions),
@@ -10,7 +10,7 @@ export const Route = createFileRoute('/settings')({
 })
 
 function SettingsPage() {
-  const { data: user, error } = useUserQuery()
+  const { data: user, error } = useGetUserQuery()
   const [locale, setLocale] = useAtom(localeAtom)
 
   const toggleLanguage = () => setLocale((prev) => (prev === 'fr' ? 'en' : 'fr'))
