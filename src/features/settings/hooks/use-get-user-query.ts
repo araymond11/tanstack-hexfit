@@ -17,7 +17,7 @@ export const userQueryKey = ['user', 'me']
 
 export const useGetUserQuery = (options?: GetUserQueryOptions) =>  {
   return useQuery({
-  queryKey: ['user', 'me'],
+  queryKey: userQueryKey,
   queryFn: () => new Promise<User>((resolve) => setTimeout(() => resolve(fakeUser), 500)),
   gcTime: 0,
   ...options
