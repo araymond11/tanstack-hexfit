@@ -1,5 +1,5 @@
 import type { User } from '#/types/user'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query'
 
 const fakeUser: User = {
   firstname: 'Jean',
@@ -7,13 +7,19 @@ const fakeUser: User = {
   email: 'jean.dupont@exemple.com',
 }
 
-export const userQueryOptions = queryOptions<User>({
+type UserQueryResponse = {
+  user: User
+}
+
+type GetUserQueryOptions = UseQueryOptions<{}, Error, UserQueryResponse>
+
+export const userQueryKey = ['user', 'me']
+
+export const useGetUserQuery = (options?: GetUserQueryOptions) =>  {
+  return useQuery({
   queryKey: ['user', 'me'],
   queryFn: () => new Promise<User>((resolve) => setTimeout(() => resolve(fakeUser), 500)),
-})
-
-export const userQueryKey = userQueryOptions.queryKey
-
-export const useUserQuery = () => useQuery(userQueryOptions)
-
-export const useGetUserQuery = useUserQuery
+  gcTime: 0,
+  ...options
+  })
+}
