@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Button, Card, CardContent, Divider, Typography } from '@mui/material'
+import { Button, Card, CardContent, Divider } from '@mui/material'
 import type { User } from '#/types/user'
 import { ConnectionInformationEditView } from './connection-information-edit-view'
 import { ConnectionInformationReadView } from './connection-information-read-view'
@@ -19,28 +19,18 @@ export function ConnectionInformationCard({ user: initialUser }: Props) {
 
   return (
     <Card>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          px: 3,
-          py: 2,
-        }}
-      >
-        <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-          Informations de connexion
-        </Typography>
+      <div className="flex items-center justify-between px-6 py-4">
+        <span className="text-base font-medium">Informations de connexion</span>
         {!isEditing && (
           <Button variant="contained" color="primary" onClick={() => setIsEditing(true)}>
             Modifier
           </Button>
         )}
-      </Box>
+      </div>
 
       <Divider />
 
-      <CardContent sx={{ px: 3, py: 2 }}>
+      <CardContent className="px-6 py-4">
         {isEditing ? (
           <ConnectionInformationEditView
             user={user}
